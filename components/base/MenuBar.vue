@@ -38,6 +38,11 @@
     </MenubarMenu>
     <MenubarMenu>
       <MenubarTrigger>Settings</MenubarTrigger>
+      <MenubarContent>
+        <MenubarItem @select="onInitSchemaFormat"
+          >Add Schema Highlight</MenubarItem
+        >
+      </MenubarContent>
     </MenubarMenu>
   </Menubar>
 </template>
@@ -47,6 +52,7 @@ import { toast } from "vue-sonner";
 
 const fileStore = useFileStore();
 const { generateModelAndDTO } = useMapper();
+const { initSchemaFormat } = useSetting();
 
 async function onCreateSchemaMapper() {
   const schemaContent = `# =============================================================================
@@ -76,7 +82,13 @@ async function onCreateSchemaForm() {
   toast(`File created to ${path}`);
 }
 
-const onGenerateModelAndDTO = () => {
-  generateModelAndDTO();
+const onGenerateModelAndDTO = async () => {
+  await generateModelAndDTO();
+  toast("Models and DTOs generated successfully");
+};
+
+const onInitSchemaFormat = async () => {
+  await initSchemaFormat();
+  toast("Schema format initialized successfully");
 };
 </script>
