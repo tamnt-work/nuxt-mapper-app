@@ -13,3 +13,174 @@
 # - 'relationships' define connections between models
 #
 # =============================================================================
+
+User:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+    fullName:
+      type: string
+      map: name
+    email:
+      type: string
+      map: email
+    phoneNumber:
+      type: string
+      map: phone
+    companyName:
+      type: string
+      map: company.name
+    address:
+      type: string
+      map: address.street.name
+  relationships:
+    posts:
+      type: Post[]
+      map: user.posts
+    comments:
+      type: Comment[]
+      map: user.comments
+Post:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    title:
+      type: string
+    content:
+      type: string
+      map: body
+  relationships:
+    author:
+      type: User
+      map: post.user
+Comment:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    content:
+      type: string
+    createdAt:
+      type: date
+      map: created_at
+  relationships:
+    author:
+      type: User
+      map: comment.user
+    post:
+      type: Post
+      map: comment.post
+Category:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    name:
+      type: string
+    description:
+      type: string
+    slug:
+      type: string
+  relationships:
+    posts:
+      type: Post[]
+      map: category.posts
+Tag:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    name:
+      type: string
+    slug:
+      type: string
+    color:
+      type: string
+  relationships:
+    posts:
+      type: Post[]
+      map: tag.posts
+Media:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    url:
+      type: string
+      required: true
+    type:
+      type: string
+      map: media_type
+    size:
+      type: number
+    filename:
+      type: string
+    mimeType:
+      type: string
+      map: mime_type
+    createdAt:
+      type: date
+      map: created_at
+  relationships:
+    uploader:
+      type: User
+      map: media.user
+    post:
+      type: Post
+      map: media.post
+Notification:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    type:
+      type: string
+      map: notification_type
+    message:
+      type: string
+    isRead:
+      type: boolean
+      map: is_read
+    createdAt:
+      type: date
+      map: created_at
+  relationships:
+    recipient:
+      type: User
+      map: notification.user
+    post:
+      type: Post
+      map: notification.post
+    comment:
+      type: Comment
+      map: notification.comment
+Test:
+  type: model
+  mappings:
+    id:
+      type: string
+      map: id
+      required: true
+    test:
+      type: string
+      map: testName
+      required: true
+  relationships:
+    posts:
+      type: Post[]
+      map: posts

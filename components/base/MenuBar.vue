@@ -13,7 +13,9 @@
           >Create Schema Mapper</MenubarItem
         >
         <MenubarSeparator />
-        <MenubarItem>Generate Mappers</MenubarItem>
+        <MenubarItem @select="onGenerateModelAndDTO"
+          >Generate All Mappers</MenubarItem
+        >
         <MenubarSeparator />
         <MenubarItem>View Visualizer Schema</MenubarItem>
       </MenubarContent>
@@ -44,6 +46,7 @@
 import { toast } from "vue-sonner";
 
 const fileStore = useFileStore();
+const { generateModelAndDTO } = useMapper();
 
 async function onCreateSchemaMapper() {
   const schemaContent = `# =============================================================================
@@ -72,4 +75,8 @@ async function onCreateSchemaForm() {
   await fileStore.createFile(path, "");
   toast(`File created to ${path}`);
 }
+
+const onGenerateModelAndDTO = () => {
+  generateModelAndDTO();
+};
 </script>
